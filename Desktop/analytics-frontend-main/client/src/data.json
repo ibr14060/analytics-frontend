@@ -1,0 +1,71 @@
+[
+{
+    "matchNumber": 1,
+    "roundNumber": 1,
+    "dateUtc": "2022-11-20T16:00:00Z",
+    "location": "Al Bayt Stadium",
+    "availability": {
+    "category1": {
+        "count": 20,
+        "price": 75
+    },
+    "category2": {
+        "count": 20,
+        "price": 125
+    },
+    "category3": {
+        "count": 20,
+        "price": 195
+    }            
+    },
+    "homeTeam": "Qatar",
+    "awayTeam": "Ecuador",
+    "group": "A"
+},
+{
+    "matchNumber": 3,
+    "roundNumber": 1,
+    "dateUtc": "2022-11-21T13:00:00Z",
+    "location": "Khalifa International Stadium",
+    "availability": {
+    "category1": {
+        "count": 20,
+        "price": 75
+    },
+    "category2": {
+        "count": 20,
+        "price": 125
+    },
+    "category3": {
+        "count": 20,
+        "price": 195
+    }            
+    },
+    "homeTeam": "England",
+    "awayTeam": "Iran",
+    "group": "B"
+},
+{
+    "matchNumber": 2,
+    "roundNumber": 1,
+    "dateUtc": "2022-11-21T16:00:00Z",
+    "location": "Al Thumama Stadium",
+    "availability": {
+    "category1": {
+        "count": 20,
+        "price": 75
+    },
+    "category2": {
+        "count": 20,
+        "price": 125
+    },
+    "category3": {
+        "count": 20,
+        "price": 195
+    }            
+    },
+    "homeTeam": "Senegal",
+    "awayTeam": "Netherlands",
+    "group": "A"
+}
+]
