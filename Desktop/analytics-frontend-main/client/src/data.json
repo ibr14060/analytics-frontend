@@ -90,7 +90,7 @@
         "price": 195
     }            
     },
-    "homeTeam": "England",
+    "homeTeam": "Brazil",
     "awayTeam": "Iran",
     "group": "B",
     "stat":"pending"
@@ -117,7 +117,7 @@
     "homeTeam": "Argentina",
     "awayTeam": "France",
     "group": "C",
-    "stat":"reserved"
+    "stat":"pending"
   },
   {
     "matchNumber": 82,
