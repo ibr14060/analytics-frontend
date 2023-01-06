@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 //import React from "react";
 import "./App.css";
 
@@ -36,9 +37,9 @@ const { fill, x, y, width, height } = props;
 return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
 
 };
-var count_of_can =0;
-var count_of_pen =0;
-var count_of_res =0;
+var count_of_canceled =0;
+var count_of_pending =0;
+var count_of_reserved =0;
 var count_of_QAT=0;
 //var count_of_QAT=0;
 var count_of_ECU=0;
@@ -63,7 +64,7 @@ var count_of_JPN=0;
 var count_of_ESP=0;
 var count_of_WRS=0;
 var count_of_BEL=0;
-var count_of_CAN=0;
+var count_of_CANa=0;
 var count_of_SUI=0;
 var count_of_CMR=0;
 var count_of_URU=0;
@@ -73,240 +74,237 @@ var count_of_GHA=0;
 var count_of_BRA=0;
 var count_of_SRB=0;
 
-const configData = require('./data.json');
 
-
-//console.log(configData.length);
-//console.log(configData[0].stat);
-
-for (var i=0;i<configData.length;i++){
-  //  console.log(configData[i]);
-    
-if(configData[i].stat=="canceled"){
-    count_of_can ++; 
-}
-if(configData[i].stat=="pending"){
-    count_of_pen ++; 
-}
-if(configData[i].stat=="reserved"){
-    count_of_res ++; 
-}
-
-}
-for( var j=0;j<configData.length;j++){
-    if(configData[j].matchNumber==1&&configData[j].stat=="reserved"){
-        count_of_QAT ++; 
-        count_of_ECU ++; 
-    }
-    if(configData[j].matchNumber==2 &&configData[j].stat=="reserved"){
-        count_of_SEN ++; 
-        count_of_NED ++;  
-    }
-    if(configData[j].matchNumber==3 &&configData[j].stat=="reserved"){
-        count_of_ENG ++; 
-        count_of_IRN ++; 
-    }
-    if(configData[j].matchNumber==4&&configData[j].stat=="reserved"){
-        count_of_USA ++;  
-        count_of_WAL ++; 
-    }
-    if(configData[j].matchNumber==5&&configData[j].stat=="reserved"){
-        count_of_AUS ++; 
-        count_of_FRA ++; 
-    }
-    if(configData[j].matchNumber==6&&configData[j].stat=="reserved"){
-        count_of_TUN ++; 
-        count_of_DEN ++;  
-    }
-    if(configData[j].matchNumber==7&&configData[j].stat=="reserved"){
-        count_of_POL ++; 
-        count_of_MEX ++; 
-    }
-    if(configData[j].matchNumber==8&&configData[j].stat=="reserved"){
-        count_of_KSA ++; 
-        count_of_ARG ++; 
-    }
-    if(configData[j].matchNumber==9&&configData[j].stat=="reserved"){
-        count_of_CAN ++; 
-        count_of_BEL ++;  
-    }
-    if(configData[j].matchNumber==10&&configData[j].stat=="reserved"){
-        count_of_WRS ++; 
-        count_of_ESP ++; 
-    }
-    if(configData[j].matchNumber==11&&configData[j].stat=="reserved"){
-        count_of_JPN ++; 
-        count_of_GER ++; 
-    }
-    if(configData[j].matchNumber==12&&configData[j].stat=="reserved"){
-        count_of_CRO ++; 
-        count_of_MAR ++; 
-    }
-    if(configData[j].matchNumber==13&&configData[j].stat=="reserved"){
-        count_of_CMR ++;
-        count_of_SUI ++; 
-    }
-    if(configData[j].matchNumber==14&&configData[j].stat=="reserved"){
-        count_of_PRK ++; 
-        count_of_URU ++; 
-    }
-    if(configData[j].matchNumber==15&&configData[j].stat=="reserved"){
-        count_of_GHA ++; 
-        count_of_POR++; 
-    }
-    if(configData[j].matchNumber==16&&configData[j].stat=="reserved"){
-        count_of_SRB ++; 
-        count_of_BRA ++; 
-    }
-    if(configData[j].matchNumber==17&&configData[j].stat=="reserved"){
-        count_of_WAL ++;
-        count_of_IRN ++;  
-    }
-    if(configData[j].matchNumber==18&&configData[j].stat=="reserved"){
-        count_of_SEN ++; 
-        count_of_QAT ++;  
-    }
-    if(configData[j].matchNumber==19&&configData[j].stat=="reserved"){
-        count_of_ECU ++; 
-        count_of_NED ++; 
-    }
-    if(configData[j].matchNumber==20&&configData[j].stat=="reserved"){
-        count_of_ENG ++; 
-        count_of_USA ++; 
-    }
-    if(configData[j].matchNumber==21&&configData[j].stat=="reserved"){
-        count_of_TUN ++; 
-        count_of_AUS ++; 
-    }
-    if(configData[j].matchNumber==22&&configData[j].stat=="reserved"){
-        count_of_POL ++; 
-        count_of_KSA ++;
-    }
-    if(configData[j].matchNumber==23&&configData[j].stat=="reserved"){
-        count_of_DEN ++;
-        count_of_FRA ++;
-    }
-    if(configData[j].matchNumber==24&&configData[j].stat=="reserved"){
-        count_of_ARG ++; 
-        count_of_MEX ++; 
-    }
-    if(configData[j].matchNumber==25&&configData[j].stat=="reserved"){
-        count_of_JPN ++;  
-        count_of_WRS ++; 
-    }
-    if(configData[j].matchNumber==26&&configData[j].stat=="reserved"){
-        count_of_BEL ++; 
-        count_of_MAR ++;
-    }
-    if(configData[j].matchNumber==27 &&configData[j].stat=="reserved"){
-        count_of_CRO ++; 
-        count_of_CAN ++;
-    }
-    if(configData[j].matchNumber==28&&configData[j].stat=="reserved"){
-        count_of_ESP ++; 
-        count_of_GER ++; 
-    }
-    if(configData[j].matchNumber==29&&configData[j].stat=="reserved"){
-        count_of_CMR++; 
-        count_of_SRB++; 
-    }
-    if(configData[j].matchNumber==30&&configData[j].stat=="reserved"){
-        count_of_GHA ++; 
-        count_of_PRK++; 
-    }
-    if(configData[j].matchNumber==31&&configData[j].stat=="reserved"){
-        count_of_BRA ++;
-        count_of_SUI ++;
-    }
-    if(configData[j].matchNumber==32&&configData[j].stat=="reserved"){
-        count_of_POR ++; 
-        count_of_URU ++; 
-    }   
-    if(configData[j].matchNumber==33&&configData[j].stat=="reserved"){
-        count_of_ENG ++; 
-        count_of_WAL ++;
-    }
-    if(configData[j].matchNumber==34&&configData[j].stat=="reserved"){
-        count_of_USA ++;
-        count_of_IRN ++;  
-    }
-    if(configData[j].matchNumber==35&&configData[j].stat=="reserved"){
-        count_of_SEN ++; 
-        count_of_ECU ++; 
-    }
-    if(configData[j].matchNumber==36&&configData[j].stat=="reserved"){
-        count_of_QAT ++; 
-        count_of_NED ++; 
-    }
-    if(configData[j].matchNumber==37&&configData[j].stat=="reserved"){
-        count_of_DEN ++;
-        count_of_AUS ++;  
-    }
-    if(configData[j].matchNumber==38&&configData[j].stat=="reserved"){
-        count_of_FRA ++; 
-        count_of_TUN ++; 
-    }
-    if(configData[j].matchNumber==39&&configData[j].stat=="reserved"){
-        count_of_POL ++; 
-        count_of_ARG ++; 
-    }
-    if(configData[j].matchNumber==40&&configData[j].stat=="reserved"){
-        count_of_KSA ++; 
-        count_of_MEX ++; 
-    }
-    if(configData[j].matchNumber==41&&configData[j].stat=="reserved"){
-        count_of_BEL ++; 
-        count_of_CRO ++; 
-    }
-    if(configData[j].matchNumber==42&&configData[j].stat=="reserved"){
-        count_of_CAN ++; 
-        count_of_MAR ++; 
-    }
-    if(configData[j].matchNumber==43&&configData[j].stat=="reserved"){
-        count_of_JPN ++; 
-        count_of_ESP ++; 
-    }
-    if(configData[j].matchNumber==44&&configData[j].stat=="reserved"){
-        count_of_GER ++; 
-        count_of_WRS ++;
-    }
-    if(configData[j].matchNumber==45&&configData[j].stat=="reserved"){
-        count_of_URU ++; 
-        count_of_GHA ++;
-    }
-    if(configData[j].matchNumber==46&&configData[j].stat=="reserved"){
-        count_of_POR ++; 
-        count_of_PRK ++;
-    }
-    if(configData[j].matchNumber==47&&configData[j].stat=="reserved"){
-        count_of_SRB ++; 
-        count_of_SUI ++;
-    }
-    if(configData[j].matchNumber==48&&configData[j].stat=="reserved"){
-        count_of_BRA ++;
-        count_of_CMR ++;  
-    }
-    
-}
-//console.log(count_of_res);
 
 const App = () => {
-
     
+    const [tickets, settickets] = useState([]);
 
-/*
-return (
-<div className="App">
-    <h1>{message}</h1>
-</div>
-);
-}
-*/
- //   var x=40;
+    useEffect(() => {
+      // fetch data
+    
+      axios.get('https://analytics-microservice-one.vercel.app/api/analytics')
+      .then(res=>{
+          console.log(res)
+          settickets(res.data)
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+  },[]);
+    tickets.map(function(x){
+        if(x.tickets.stat=="canceled"){
+            count_of_canceled ++; 
+        }
+        if(x.tickets.stat=="pending"){
+            count_of_pending ++; 
+        }
+        if(x.tickets.stat=="reserved"){
+            count_of_reserved ++; 
+        }
+        
+        if(Number(x.matchNumber)==1&&x.tickets.stat=="reserved"){
+            count_of_QAT += Number(x.tickets.quantity);
+            count_of_ECU += Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==2 &&x.tickets.stat=="reserved"){
+            count_of_SEN +=Number(x.tickets.quantity);
+            count_of_NED +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==3 &&x.tickets.stat=="reserved"){
+            count_of_ENG +=Number(x.tickets.quantity);
+            count_of_IRN +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==4&&x.tickets.stat=="reserved"){
+            count_of_USA +=Number(x.tickets.quantity); 
+            count_of_WAL +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==5&&x.tickets.stat=="reserved"){
+            count_of_AUS +=Number(x.tickets.quantity);
+            count_of_FRA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==6&&x.tickets.stat=="reserved"){
+            count_of_TUN +=Number(x.tickets.quantity);
+            count_of_DEN +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==7&&x.tickets.stat=="reserved"){
+            count_of_POL +=Number(x.tickets.quantity);
+            count_of_MEX +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==8&&x.tickets.stat=="reserved"){
+            count_of_KSA +=Number(x.tickets.quantity);
+            count_of_ARG +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==9&&x.tickets.stat=="reserved"){
+            count_of_CANa +=Number(x.tickets.quantity);
+            count_of_BEL +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==10&&x.tickets.stat=="reserved"){
+            count_of_WRS +=Number(x.tickets.quantity);
+            count_of_ESP +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==11&&x.tickets.stat=="reserved"){
+            count_of_JPN +=Number(x.tickets.quantity);
+            count_of_GER +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==12&&x.tickets.stat=="reserved"){
+            count_of_CRO +=Number(x.tickets.quantity);
+            count_of_MAR +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==13&&x.tickets.stat=="reserved"){
+            count_of_CMR +=Number(x.tickets.quantity);
+            count_of_SUI +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==14&&x.tickets.stat=="reserved"){
+            count_of_PRK +=Number(x.tickets.quantity);
+            count_of_URU +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==15&&x.tickets.stat=="reserved"){
+            count_of_GHA +=Number(x.tickets.quantity);
+            count_of_POR+=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==16&&x.tickets.stat=="reserved"){
+            count_of_SRB +=Number(x.tickets.quantity);
+            count_of_BRA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==17&&x.tickets.stat=="reserved"){
+            count_of_WAL +=Number(x.tickets.quantity);
+            count_of_IRN +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==18&&x.tickets.stat=="reserved"){
+            count_of_SEN +=Number(x.tickets.quantity);
+            count_of_QAT +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==19&&x.tickets.stat=="reserved"){
+            count_of_ECU +=Number(x.tickets.quantity);
+            count_of_NED +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==20&&x.tickets.stat=="reserved"){
+            count_of_ENG +=Number(x.tickets.quantity);
+            count_of_USA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==21&&x.tickets.stat=="reserved"){
+            count_of_TUN +=Number(x.tickets.quantity);
+            count_of_AUS +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==22&&x.tickets.stat=="reserved"){
+            count_of_POL +=Number(x.tickets.quantity);
+            count_of_KSA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==23&&x.tickets.stat=="reserved"){
+            count_of_DEN +=Number(x.tickets.quantity);
+            count_of_FRA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==24&&x.tickets.stat=="reserved"){
+            count_of_ARG +=Number(x.tickets.quantity);
+            count_of_MEX +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==25&&x.tickets.stat=="reserved"){
+            count_of_JPN +=Number(x.tickets.quantity); 
+            count_of_WRS +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==26&&x.tickets.stat=="reserved"){
+            count_of_BEL +=Number(x.tickets.quantity);
+            count_of_MAR +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==27&&x.tickets.stat=="reserved"){
+            count_of_CRO +=Number(x.tickets.quantity);
+            count_of_CANa +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==28&&x.tickets.stat=="reserved"){
+            count_of_ESP +=Number(x.tickets.quantity);
+            count_of_GER +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==29&&x.tickets.stat=="reserved"){
+            count_of_CMR+=Number(x.tickets.quantity);
+            count_of_SRB+=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==30&&x.tickets.stat=="reserved"){
+            count_of_GHA +=Number(x.tickets.quantity);
+            count_of_PRK+=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==31&&x.tickets.stat=="reserved"){
+            count_of_BRA +=Number(x.tickets.quantity);
+            count_of_SUI +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==32&&x.tickets.stat=="reserved"){
+            count_of_POR +=Number(x.tickets.quantity);
+            count_of_URU +=Number(x.tickets.quantity);
+        }   
+        if(Number(x.matchNumber)==33&&x.tickets.stat=="reserved"){
+            count_of_ENG +=Number(x.tickets.quantity);
+            count_of_WAL +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==34&&x.tickets.stat=="reserved"){
+            count_of_USA +=Number(x.tickets.quantity);
+            count_of_IRN +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==35&&x.tickets.stat=="reserved"){
+            count_of_SEN +=Number(x.tickets.quantity);
+            count_of_ECU +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==36&&x.tickets.stat=="reserved"){
+            count_of_QAT +=Number(x.tickets.quantity);
+            count_of_NED +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==37&&x.tickets.stat=="reserved"){
+            count_of_DEN +=Number(x.tickets.quantity);
+            count_of_AUS +=Number(x.tickets.quantity); 
+        }
+        if(Number(x.matchNumber)==38&&x.tickets.stat=="reserved"){
+            count_of_FRA +=Number(x.tickets.quantity);
+            count_of_TUN +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==39&&x.tickets.stat=="reserved"){
+            count_of_POL +=Number(x.tickets.quantity);
+            count_of_ARG +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==40&&x.tickets.stat=="reserved"){
+            count_of_KSA +=Number(x.tickets.quantity);
+            count_of_MEX +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==41&&x.tickets.stat=="reserved"){
+            count_of_BEL +=Number(x.tickets.quantity);
+            count_of_CRO +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==42&&x.tickets.stat=="reserved"){
+            count_of_CANa +=Number(x.tickets.quantity);
+            count_of_MAR +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==43&&x.tickets.stat=="reserved"){
+            count_of_JPN +=Number(x.tickets.quantity);
+            count_of_ESP +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==44&&x.tickets.stat=="reserved"){
+            count_of_GER +=Number(x.tickets.quantity);
+            count_of_WRS +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==45&&x.tickets.stat=="reserved"){
+            count_of_URU +=Number(x.tickets.quantity);
+            count_of_GHA +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==46&&x.tickets.stat=="reserved"){
+            count_of_POR +=Number(x.tickets.quantity);
+            count_of_PRK +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==47&&x.tickets.stat=="reserved"){
+            count_of_SRB +=Number(x.tickets.quantity);
+            count_of_SUI +=Number(x.tickets.quantity);
+        }
+        if(Number(x.matchNumber)==48&&x.tickets.stat=="reserved"){
+            count_of_BRA +=Number(x.tickets.quantity);
+            count_of_CMR +=Number(x.tickets.quantity); 
+        }
+
+    })  
+    console.log(count_of_reserved);
+   
+ 
+
 const data = [
-{ stat: "reserved", value: count_of_res },
-{ stat: "canceled", value: count_of_can },
-{ stat: "pending", value: count_of_pen },
+{ stat: "reserved", value: count_of_reserved },
+{ stat: "canceled", value: count_of_canceled },
+{ stat: "pending", value: count_of_pending },
 
 ];
 
@@ -452,7 +450,7 @@ const dataofmatches = [
     },
     {
         name: "CAN",
-        uv: count_of_CAN,
+        uv: count_of_CANa,
         pv: 9800,
         amt: 2290
     },
